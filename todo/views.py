@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from datetime import date, timedelta
 
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.views import View
 
 from rest_framework.response import Response
