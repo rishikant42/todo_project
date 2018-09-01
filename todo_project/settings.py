@@ -39,8 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # 3rd party
-    # 'django_extensions',
+    #'django_extensions',
     'rest_framework',
+    #'django_celery_results',
 
     # internal app
     'todo.apps.TodoConfig',
@@ -138,3 +139,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CELERY_PROJECT_NAME = 'todo.clery_tasks'
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost'
+
+# http://docs.celeryproject.org/en/latest/django/first-steps-with-django.html#extensions
+# CELERY_RESULT_BACKEND = 'django-db'
