@@ -114,27 +114,28 @@ $ curl http://127.0.0.1:8787/tasks/ | json_pp
 ### Create new task
 
 ```
-$ curl -X POST -H "Content-Type: application/json" -d '{"title": "title-new", "description": "description-new", "due_date":"2018-08-14", "sub_tasks": [{"title": "subTask-3"}, {"title": "subTask-2"} ] }' http://127.0.0.1:8787/tasks/ | json_pp
+$ curl -X POST -H "Content-Type: application/json" -d '{"title": "some-title", "description": "some-description", "due_date":"2018-09-14T15:30", "alert_hours": 1, "sub_tasks": [{"title": "subtask1"}, {"title": "subtask2"} ] }' http://127.0.0.1:8787/tasks/ | json_pp
 
 {
-   "title" : "title-new",
    "state" : 1,
-   "description" : "description-new",
+   "due_date" : "2018-09-14T15:30:00Z",
+   "title" : "some-title",
    "sub_tasks" : [
       {
          "description" : null,
-         "title" : "subTask-3",
-         "id" : 9
+         "id" : 23,
+         "title" : "subtask1"
       },
       {
-         "title" : "subTask-2",
+         "id" : 24,
          "description" : null,
-         "id" : 10
+         "title" : "subtask2"
       }
    ],
-   "id" : 18,
-   "due_date" : "2018-08-14"
+   "description" : "some-description",
+   "id" : 16
 }
+
 ```
 
 ### Filters (due-date=this-week)
