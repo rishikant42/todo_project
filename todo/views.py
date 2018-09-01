@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from datetime import date, timedelta
+from datetime import datetime, date, timedelta
 
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
@@ -13,6 +13,7 @@ from rest_framework import status
 
 from todo.models import Task, SubTask
 from todo.serializers import TaskSerializer
+from todo.celery_tasks import task_alert
 
 
 class TaskList(APIView):
@@ -91,6 +92,7 @@ class TaskList(APIView):
 
     def post(self, request):
         sub_tasks = request.data.pop('sub_tasks', None)
+        alert_hours = request.data.pop('alert_hours', None)
 
         serializer = TaskSerializer(data=request.data)
         if serializer.is_valid():
@@ -99,6 +101,17 @@ class TaskList(APIView):
             if sub_tasks:
                 for sub_task in sub_tasks:
                     SubTask.objects.create(task=serializer.instance, **sub_task)
+
+            due_date = serializer.instance.due_date
+
+            # task alert
+            if due_date and alert_hours:
+                task_id = serializer.instance.id
+                task_title = serializer.instance.title
+
+                alert_time = due_date - timedelta(hours=alert_hours)
+
+                task_alert.apply_async((task_id, task_title), eta=alert_time)
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
