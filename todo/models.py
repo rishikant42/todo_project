@@ -17,7 +17,7 @@ class Task(models.Model):
 
     title = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
-    due_date = models.DateField(null=True, blank=True)
+    due_date = models.DateTimeField(null=True, blank=True)
     state = models.IntegerField(choices=STATE_CHOICES, default=PENDING)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
