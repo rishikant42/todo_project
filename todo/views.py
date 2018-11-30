@@ -16,6 +16,14 @@ from todo.serializers import TaskSerializer
 from todo.celery_tasks import task_alert
 
 
+class Slack(APIView):
+    def post(self, request):
+        response = {
+            'challenge': request.data.get('challenge')
+        }
+        return Response(response)
+
+
 class TaskList(APIView):
     """
     HTTP_ALLOWED_METHODS: GET, POST
