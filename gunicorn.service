@@ -1,0 +1,22 @@
+# path = /etc/systemd/system/gunicorn.service
+
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+PIDFile=/run/gunicorn/pid
+User=ubuntu
+Group=www-data
+RuntimeDirectory=gunicorn
+EnvironmentFile=/home/ubuntu/todo_project/.env
+WorkingDirectory=/home/ubuntu/todo_project
+ExecStart=/home/ubuntu/.virtualenvs/myenv/bin/gunicorn --pid /run/gunicorn/pid  \
+      --bind unix:/run/gunicorn/socket todo_project.wsgi
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+privateTmp=true
+[Install]
+WantedBy=multi-user.target
+
