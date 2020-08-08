@@ -6,7 +6,7 @@ from todo.models import Task, SubTask
 class SubTaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubTask
-        fields = ('id', 'title', 'description')
+        fields = ('title', 'description')
 
 class TaskSerializer(serializers.ModelSerializer):
 
