@@ -28,7 +28,7 @@ class TaskList(APIView):
     """
     HTTP_ALLOWED_METHODS: GET, POST
 
-    METHOD GET:
+    METHOD GET
         Return list of existing tasks
 
     METHOD POST:
