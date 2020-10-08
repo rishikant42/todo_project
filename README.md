@@ -1,4 +1,4 @@
-### ToDo list application
+## ToDo list application
 
 A simple todo list application written in Python with django web framework.
 
