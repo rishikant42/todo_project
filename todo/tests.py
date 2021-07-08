@@ -24,7 +24,9 @@ class TaskApiTest(TestCase):
         self.assertEqual(len(data), 2)
 
     def test_create_task(self):
-        data = {"title": "title3", "description": "description3", "due_date":"2018-09-14T15:30"}
+        data = {
+            "title": "title3", "description": "description3", "due_date":"2018-09-14T15:30"
+        }
         json_data = json.dumps(data)
         response = self.client.post(reverse('task_list_api'), json_data, content_type="application/json")
         status = response.status_code
